@@ -1,0 +1,12 @@
+body {
+  background: #d1f6f2;
+}
+table,
+tr,
+td {
+  border: 1px solid black;
+}
+div {
+  display: flex;
+  justify-content: center;
+}
