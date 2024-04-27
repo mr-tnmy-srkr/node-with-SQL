@@ -5,15 +5,18 @@ const mysql = require("mysql2");
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  database: "student",
+  database: "instagram",
   password: "Tanmoy@1993",
 });
 
-// A simple SELECT query
+let q = "SHOW TABLES"
 try {
-  connection.query("SHOW TABLES", (err, results) => {
+  connection.query(q, (err, results) => {
     if (err) throw err;
     console.log(results); // results contains rows returned by server
+    console.log(results.length); // results contains rows returned by server
+    console.log(results[0]); // results contains rows returned by server
+    console.log(results[1]); // results contains rows returned by server
   });
 } catch (err) {
   console.log(err);
