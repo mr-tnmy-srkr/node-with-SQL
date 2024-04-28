@@ -1,6 +1,8 @@
 const express = require("express");
+
 const app = express();
 const port = 8080;
+const { uuid } = require("uuidv4");
 const path = require("path");
 const { faker } = require("@faker-js/faker");
 const mysql = require("mysql2");
@@ -55,6 +57,27 @@ app.get("/users", (req, res) => {
     res.render("error.ejs");
   }
 });
+//Add user Route
+app.get("/user/new", (req, res) => {
+  res.render("new.ejs");
+});
+//Add a user to DB
+app.post("/user", (req, res) => {
+  const { username, email, password } = req.body;
+  const id = uuid();
+  let q = `INSERT INTO users (id,username,email,password) VALUES (?,?,?,?)`;
+  let data = [id, username, email, password];
+
+  try {
+    connection.query(q, data, (error, result) => {
+      if (error) throw error;
+      res.redirect("/users");
+    });
+  } catch (error) {
+    console.log(error);
+    res.render("error.ejs");
+  }
+});
 
 //Edit Route
 app.get("/user/:id/edit", (req, res) => {
@@ -72,7 +95,7 @@ app.get("/user/:id/edit", (req, res) => {
     res.render("error.ejs");
   }
 });
-//Update Route
+//Update to DB
 app.patch("/user/:id", (req, res) => {
   let { id } = req.params;
   let { password: formPass, username: newUserName } = req.body;

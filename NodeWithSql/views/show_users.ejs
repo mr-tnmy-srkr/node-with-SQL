@@ -8,9 +8,12 @@
     , initial-scale=1.0"
     />
     <title>All users</title>
-   <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <h2 style="text-align: center">
+      Total no of users are : <%= users.length %>
+    </h2>
     <div>
       <table>
         <tr>
@@ -25,12 +28,12 @@
           <td><%= user.email %></td>
           <td>
             <form method="get" action="/user/<%= user.id %>/edit">
-            <button>Edit Username</button>
+              <button type="submit">Edit Username</button>
             </form>
           </td>
           <td>
             <form method="POST" action="/user/<%= user.id %>?_method=DELETE">
-            <button>Delete User</button>
+              <button type="submit">Delete User</button>
             </form>
           </td>
         </tr>
