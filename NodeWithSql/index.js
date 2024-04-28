@@ -88,11 +88,28 @@ app.patch("/user/:id", (req, res) => {
         connection.query(q2, (err, result) => {
           if (error) throw error;
           // res.send(result);
-          res.redirect("/users")
+          res.redirect("/users");
         });
       }
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    res.render("error.ejs");
+  }
+});
+//Delete user
+app.delete("/user/:id", (req, res) => {
+  let { id } = req.params;
+  let q = `DELETE FROM users WHERE id = '${id}'`;
+  try {
+    connection.query(q, (error, result) => {
+      if (error) throw error;
+      res.redirect("/users");
+    });
+  } catch (error) {
+    console.log(error);
+    res.render("error.ejs");
+  }
 });
 app.listen(port, () => {
   console.log("Server is listening on port " + port);
